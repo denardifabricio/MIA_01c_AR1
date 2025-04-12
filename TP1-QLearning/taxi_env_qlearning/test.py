@@ -2,10 +2,17 @@ import time
 import numpy as np
 from taxi_env import TaxiEnvCustom
 import os
-env = TaxiEnvCustom()
-base_path = "/Users/fabricio.denardi/Documents/CEIA/AR1/repos/MIA_01c_AR1/TP1-QLearning/taxi_env_qlearning/"
+from dotenv import load_dotenv
 
-q_table_path = os.path.join(base_path, "q_table.npy")
+load_dotenv()
+
+base_path = os.getenv("BASE_PATH")
+q_table_path = os.path.join(base_path, os.getenv("Q_TABLE_PATH"))
+
+
+img_base_path = os.path.join(base_path, "img")
+env = TaxiEnvCustom(img_base_path=img_base_path)
+
 
 q_table = np.load(q_table_path)
 

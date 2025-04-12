@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from taxi_env import TaxiEnvCustom
 import os   
+from dotenv import load_dotenv
+
+load_dotenv()
 
 env = TaxiEnvCustom()
 q_table = np.zeros((env.state_space, env.action_space))
@@ -38,7 +41,9 @@ plt.title("Convergencia del aprendizaje")
 plt.grid(True)
 plt.show()
 
-base_path = "/Users/fabricio.denardi/Documents/CEIA/AR1/repos/MIA_01c_AR1/TP1-QLearning/taxi_env_qlearning/"
-q_table_path = os.path.join(base_path, "q_table.npy")
+
+base_path = os.getenv("BASE_PATH")
+q_table_path = os.path.join(base_path, os.getenv("Q_TABLE_PATH"))
+
 
 np.save(q_table_path, q_table)

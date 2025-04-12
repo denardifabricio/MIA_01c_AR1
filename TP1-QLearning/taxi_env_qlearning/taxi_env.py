@@ -11,7 +11,8 @@ DROPOFF_LOCATIONS = [(5, 5), (5, 6), (6, 5), (6, 6)]
 OBSTACLES = [(2,1),(3,1),(4,1),(5,1),(3, 3), (3, 4), (3, 5), (7, 6), (8, 6),(0,8),(1,8),(2,8),(3,8),(4,8)]
 
 class TaxiEnvCustom:
-    def __init__(self):
+    def __init__(self, img_base_path=None):
+        self.img_base_path = img_base_path
         self.grid_size = GRID_SIZE
         self.pickups = PICKUP_LOCATIONS
         self.dropoffs = DROPOFF_LOCATIONS
@@ -24,6 +25,10 @@ class TaxiEnvCustom:
 
         self.reset()
 
+    def action_space_sample(self):
+        """Devuelve una acción aleatoria dentro del espacio de acciones."""
+        return random.randint(0, self.action_space - 1)
+    
     def encode(self, taxi_row, taxi_col, passenger_idx, in_taxi):
         return ((taxi_row * self.grid_size + taxi_col) * len(self.pickups) + passenger_idx) * 2 + in_taxi
 
@@ -61,6 +66,10 @@ class TaxiEnvCustom:
         if (next_row, next_col) not in self.obstacles:
             self.taxi_row, self.taxi_col = next_row, next_col
 
+        # Penalizar si el taxi navega por un destino
+        if (self.taxi_row, self.taxi_col) in self.dropoffs and not self.in_taxi:
+            reward = -5
+
         if action == 4:
             if not self.in_taxi and (self.taxi_row, self.taxi_col) == self.pickups[self.passenger_idx]:
                 self.in_taxi = 1
@@ -93,8 +102,7 @@ class TaxiEnvCustom:
             self.window = pygame.display.set_mode(self.window_size)
             self.clock = pygame.time.Clock()
 
-            base_path = "/Users/fabricio.denardi/Documents/CEIA/AR1/repos/MIA_01c_AR1/TP1-QLearning/taxi_env_qlearning/img"
-
+            base_path =  self.img_base_path 
             img_background = os.path.join(base_path, "taxi_background.png")
             img_obstacle_horizontal = os.path.join(base_path, "gridworld_median_horiz.png")  
             img_obstacle_horizontal_last = os.path.join(base_path, "gridworld_median_right.png")  
