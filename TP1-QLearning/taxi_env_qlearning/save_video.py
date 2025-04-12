@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
 
     load_dotenv()
-    base_path = "/Users/fabricio.denardi/Documents/CEIA/AR1/repos/MIA_01c_AR1/TP1-QLearning/taxi_env_qlearning/"
+    base_path = os.getenv("BASE_PATH")
     results_path = os.path.join(base_path,"results")
     best_result_path = os.path.join(results_path,"best_result")
     img_results = os.path.join(best_result_path,"img")
