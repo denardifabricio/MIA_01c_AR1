@@ -3,3 +3,5 @@ numpy
 os
 dotenv
 matplotlib
+csv
+pandas

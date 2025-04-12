@@ -22,7 +22,7 @@ class TaxiEnvCustom:
         self.last_action = None  # Inicializar la última acción como None
         self.pickup_colors = None
         self.in_taxi = 0 # 0: no en taxi, 1: en taxi
-
+        self.done = False
         self.reset()
 
     def action_space_sample(self):
@@ -81,6 +81,7 @@ class TaxiEnvCustom:
                 self.in_taxi = 0  # El pasajero ha sido dejado
                 reward = 20
                 done = True
+                self.done = done
             else:
                 reward = -10
 
@@ -211,7 +212,7 @@ class TaxiEnvCustom:
             pygame.draw.rect(self.window, (173, 216, 230), rect)  # Fondo azul claro para puntos de recogida
 
          # Dibujar al pasajero si no está en el taxi
-        if not self.in_taxi:
+        if not self.in_taxi and not self.done:
             passenger_row, passenger_col = self.pickups[self.passenger_idx]
             self.window.blit(self.images["passenger"], (passenger_col * self.cell_size, passenger_row * self.cell_size))
 
@@ -243,3 +244,8 @@ class TaxiEnvCustom:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+
+                
+    def save_render(self, img_path):
+        """Guarda la imagen renderizada actual en el archivo especificado."""
+        pygame.image.save(self.window, img_path)
