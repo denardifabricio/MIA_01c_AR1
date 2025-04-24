@@ -1,4 +1,18 @@
-# Aprendizaje por Refuerzo - Trabajos Prácticos
+<img src="https://github.com/hernancontigiani/ceia_memorias_especializacion/raw/master/Figures/logoFIUBA.jpg" width="500" align="center">
+
+
+
+## Alumnos
+- Denardi, Fabricio
+- Donadello, Julio Agustín
+- Isidro, Marco Joel	
+- Masoller Gancedo, Bruno Martin
+
+## Cohorte
+MIA 01-2025
+
+# Aprendizaje por Refuerzos 1
+# Trabajo práctico final
 
 Este repositorio contiene los trabajos prácticos de la materia **Aprendizaje por Refuerzo I**, parte del posgrado en Inteligencia Artificial.
 
@@ -86,3 +100,7 @@ Instalá las dependencias con:
 ```bash
 poetry install
 ```
+
+
+# Informe
+Puede encontrar el informe en el siguiente [link](Informe.pdf)
